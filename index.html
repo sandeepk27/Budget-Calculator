@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Budget Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header">
+    <h1>💸 Budget Calculator</h1>
+  </header>
+  <main class="main-container">
+
+    <section class="input-section">
+      <h2>Enter Your Details</h2>
+      <form id="budgetForm" onsubmit="event.preventDefault(); calculateBudget();">
+        <label for="income">Monthly Income (INR):</label>
+        <input type="number" id="income" placeholder="Enter your income" required />
+
+        <label for="marital">Marital Status:</label>
+        <select id="marital" required>
+          <option value="single">Single</option>
+          <option value="married">Married</option>
+        </select>
+
+        <label for="primary50">Primary Living Arrangement:</label>
+        <select id="primary50" required onchange="toggleAccommodationInput()">
+          <option value="home">Home</option>
+          <option value="other">Other</option>
+        </select>
+
+        <div id="accommodationDiv" style="display:none;">
+          <label for="accommodation">Monthly Accommodation Budget (INR):</label>
+          <input type="number" id="accommodation" placeholder="Enter your accommodation budget" min="0" />
+        </div>
+
+        <label for="loan">Monthly Loan/EMI Payment (INR):</label>
+        <input type="number" id="loan" placeholder="Enter your loan/EMI amount" required />
+
+        <button type="submit" class="calculate-btn">Calculate</button>
+      </form>
+    </section>
+    <section class="output-section" id="result">
+      <h2>Budget Output</h2>
+      <p>Results will be shown here after calculation.</p>
+    </section>
+  </main>
+
+  <section class="chart-section">
+    <canvas id="budgetChart"></canvas>
+  </section>
+  <script src="script.js"></script>
+  <script>
+function toggleAccommodationInput() {
+  const primary = document.getElementById('primary50').value;
+  const accDiv = document.getElementById('accommodationDiv');
+  const accInput = document.getElementById('accommodation');
+  if (primary === 'other') {
+    accDiv.style.display = 'block';
+    accInput.required = true;
+  } else {
+    accDiv.style.display = 'none';
+    accInput.required = false;
+    accInput.value = '';
+  }
+}
+</script>
+</body>
+</html>
